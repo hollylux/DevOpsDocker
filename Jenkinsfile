@@ -3,7 +3,12 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'mvn --version'
+                timeout(time: 3, unit: 'MINUTES') {
+                    retry(3) {
+                        sh 'mvn --version'
+                    }
+                }
+                
             }
         }
     }
